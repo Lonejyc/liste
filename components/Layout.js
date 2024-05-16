@@ -12,16 +12,16 @@ const Layout = ({ children, title = 'Default Title' }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <header className={styles.header}>
-                <nav>
+                <nav className="flex items-center gap-6 text-sm">
                     <Link href="/">Home</Link>
                     <Link href="/liste">Projects</Link>
                 </nav>
             </header>
-            <main className={styles.main}>
+            <main className="flex flex-col items-center justify-center gap-3 px-8 py-8 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6">
                 {children}
             </main>
             <footer className={styles.footer}>
-                &copy; {new Date().getFullYear()} Mon Application Next.js
+                &copy; {new Date().getFullYear()} Ma liste avec Next.js
             </footer>
         </div>
     );

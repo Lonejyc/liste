@@ -2,7 +2,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-const allowedIPs = ["176.150.41.253", "88.66.192.168"]; // Exemple d'adresses IP autorisées
+const allowedIPs = ["176.150.41.253", "82.66.241.186"]; // Exemple d'adresses IP autorisées
 
 export default NextAuth({
   providers: [

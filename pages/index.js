@@ -1,45 +1,7 @@
 // pages/index.js
-
-/* use client;
-
-import { useEffect, useState } from 'react';
-import styles from '../styles/Home.module.css';
-
-export default function Home() {
-  const [files, setFiles] = useState([]);
-  const [error, setError] = useState('');
-
-  useEffect(() => {
-    fetch('/api/explore')
-      .then(response => response.json())
-      .then(data => {
-        if (data.files) {
-          setFiles(data.files);
-        } else {
-          setError(data.message);
-        }
-      })
-      .catch(() => {
-        setError('Failed to fetch files');
-      });
-  }, []);
-
-  return (
-    <div className={styles.container}>
-      <h1>Explorateur de fichiers</h1>
-      {error && <p>Error: {error}</p>}
-      <ul>
-        {files.map(file => (
-          <li key={file}>{file}</li>
-        ))}
-      </ul>
-    </div>
-  );
-} */
-
-// pages/index.js
 import { useSession, signIn, signOut } from "next-auth/react";
 import Layout from '../components/Layout';
+import Link from "next/link";
 
 export default function Home() {
   const { data: session, status } = useSession();
@@ -51,8 +13,8 @@ export default function Home() {
   if (!session) {
     return (
       <Layout>
-        <h1>Welcome to the App</h1>
-        <button onClick={() => signIn()}>Sign In</button>
+        <h1 className="text-blue-500">Welcome to the App</h1>
+        <button onClick={() => signIn()} className="bg-blue-500 text-white px-4 py-2 rounded">Sign In</button>
       </Layout>
     );
   }
@@ -61,7 +23,7 @@ export default function Home() {
     <Layout>
       <h1>Welcome, {session.user.name}</h1>
       <button onClick={() => signOut()}>Sign Out</button>
-      <p>You are now signed in. Go to <a href="/liste">Projects</a></p>
+      <p>You are now signed in. Go to <Link href="/liste">Projects</Link></p>
     </Layout>
   );
 }
