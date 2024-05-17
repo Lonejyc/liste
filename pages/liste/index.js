@@ -8,11 +8,13 @@ export default function Liste({ session, folders }) {
   if (!session) return <p>Access Denied</p>;
 
   return (
-    <div>
-      <h1>Project List</h1>
-      <ul>
+    <div className="flex flex-col justify-center items-center h-screen">
+      <h1 className="text-2xl font-bold mb-4">Project List</h1>
+      <ul className="list-disc pl-4">
         {folders.map((folder) => (
-          <Link href={`/liste/${folder}`}>{folder}</Link>
+          <li key={folder} className="mb-2">
+            <Link href={`localhost:3000/${folder}`} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">{folder}</Link>
+          </li>
         ))}
       </ul>
     </div>
@@ -31,7 +33,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const currentDirectory = path.resolve(process.cwd(), 'pages/liste');
+  const currentDirectory = path.resolve(process.cwd(), '');
   const folderNames = fs.readdirSync(currentDirectory).filter((folder) => {
     const folderPath = path.join(currentDirectory, folder);
     const stats = fs.statSync(folderPath);
