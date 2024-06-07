@@ -6,7 +6,7 @@ export default function SignIn({ csrfToken }) {
     <form method="post" action="/api/auth/callback/credentials" className="mt-8 grid grid-cols-6 gap-6 justify-self-center">
       <input name='csrfToken' type='hidden' defaultValue={csrfToken}/>
       <div className="col-span-6">
-        <label for="username" className="block text-lg font-medium text-gray-700">Username</label>
+        <label htmlFor="username" className="block text-lg font-medium text-gray-700">Username</label>
         <input name="username" type="text" className="mt-1 w-1/4 rounded-md border border-gray-400 bg-white text-lg text-gray-700 shadow-sm p-1" />
       </div>
       <div className="col-span-6">

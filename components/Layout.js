@@ -19,7 +19,7 @@ const Layout = ({ children, title = 'Default Title' }) => {
                 <meta name="description" content="Une application Next.js bien structurée" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <header className="flex flex-row p-3 bg-blue-500">
+            <header className="flex flex-row p-3 bg-blue-500 justify-between">
                 <nav className="flex items-center gap-6 text-sm">
                     <Link href="/">Home</Link>
                     {isAuthenticated && <Link href="/liste">Projects</Link>}
