@@ -33,7 +33,6 @@ export default NextAuth({
     error: '/auth/error',    // Assurez-vous que cette page existe
   },
   session: {
-    strategy: "jwt",
-    secret: process.env.SECRET
+    strategy: "jwt"
   }
 });

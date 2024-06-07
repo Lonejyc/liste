@@ -4,7 +4,7 @@ import Link from 'next/link';
 import styles from './Layout.module.css'; // Assurez-vous de créer ce fichier CSS
 import { signIn, useSession } from 'next-auth/react';
 
-const Layout = ({ children, title = 'Default Title' }) => {
+const Layout = ({ children, title = 'Projets' }) => {
 
     const { data: session, status } = useSession();
     let isAuthenticated = false;
