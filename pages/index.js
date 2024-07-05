@@ -13,8 +13,8 @@ export default function Home() {
   if (!session) {
     return (
       <Layout>
-        <h1 className="text-blue-500">Welcome to the App</h1>
-        <button onClick={() => signIn()} className="bg-blue-500 text-white px-4 py-2 rounded">Sign In</button>
+        <h1 className="text-slate-200">Welcome to the App</h1>
+        <button onClick={() => signIn()} className="text-white px-4 py-2 border rounded-lg transition-all ease-in duration-300 hover:bg-slate-300 hover:text-black">Sign In</button>
       </Layout>
     );
   }
