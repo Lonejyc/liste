@@ -16,12 +16,12 @@ export default NextAuth({
         const userIP = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
         if (allowedIPs.includes(userIP)) {
-          return { id: 1, name: "IP-Authorized User", email: "ip-user@example.com" };
+          return { id: 1, name: "Jocelyn", email: "jocelyn.marcilloux@gmail.com" };
         }
 
         if (credentials.username === process.env.ADMIN_USERNAME &&
             credentials.password === process.env.ADMIN_PASSWORD) {
-          return { id: 2, name: "Admin", email: "admin@example.com" };
+          return { id: 2, name: "Admin", email: "admin@gmail.com" };
         }
 
         return null;

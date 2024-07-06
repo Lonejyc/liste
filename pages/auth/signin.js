@@ -16,7 +16,7 @@ export default function SignIn({ csrfToken }) {
           <label htmlFor="Password" className="block text-sm font-medium text-slate-300">Password</label>
           <input name="password" type="password" className="mt-1 rounded-md border border-slate-700 bg-slate-900 text-lg text-slate-300 shadow-sm p-1 w-full" />
         </div>
-        <button type="submit" className="inline-block shrink-0 rounded-md bg-emerald-800 py-1.5 text-sm font-semibold text-slate-300 transition-all esae-in duration-300 hover:bg-slate-300 hover:text-emerald-800 hover:font-bold focus:outline-none focus:ring">Sign in</button>
+        <button type="submit" className="inline-block shrink-0 rounded-md bg-emerald-800 py-1.5 text-sm font-semibold text-slate-300 transition-all esae-in duration-300 hover:bg-slate-300 hover:text-emerald-800 hover:font-bold focus:outline-none focus:ring active:outline-none">Sign in</button>
       </form>
     </Layout>
   );
