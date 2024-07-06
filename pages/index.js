@@ -14,7 +14,7 @@ export default function Home() {
     return (
       <Layout>
         <h1 className="text-slate-200">Welcome to the App</h1>
-        <button onClick={() => signIn()} className="text-white px-4 py-2 border rounded-lg transition-all ease-in duration-300 hover:bg-slate-300 hover:text-black">Sign In</button>
+        <button onClick={() => signIn()} className="inline-block shrink-0 rounded-md bg-emerald-800 px-4 py-1.5 text-sm font-semibold text-slate-300 transition-all esae-in duration-300 hover:bg-slate-300 hover:text-emerald-800 hover:font-bold focus:outline-none focus:ring">Sign In</button>
       </Layout>
     );
   }

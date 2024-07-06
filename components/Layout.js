@@ -12,7 +12,7 @@ const Layout = ({ children, title = 'Projets' }) => {
     }
 
     return (
-        <div className="bg-grain-background bg-cover h-full text-slate-300">
+        <div className="bg-grain-background bg-cover min-h-screen text-slate-300 flex flex-col justify-between">
             <Head>
                 <title>{title}</title>
                 <meta name="description" content="Une application Next.js bien structurée" />
