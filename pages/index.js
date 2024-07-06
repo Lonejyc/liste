@@ -42,11 +42,12 @@ export default function Home({ systemInfo }) {
       <button className="inline-block shrink-0 rounded-md bg-emerald-800 px-4 py-1.5 text-sm font-semibold text-slate-300 transition-all esae-in duration-300 hover:bg-slate-300 hover:text-emerald-800 hover:font-bold focus:outline-none active:outline-none" onClick={() => signOut()}>Sign Out</button>
       <p>You are now signed in. Go to <Link href="/liste" className="inline-block shrink-0 rounded-md bg-emerald-800 px-4 py-1.5 text-sm font-semibold text-slate-300 transition-all esae-in duration-300 hover:bg-slate-300 hover:text-emerald-800 hover:font-bold focus:outline-none active:outline-none">Projects</Link></p>
       <div>
-        <h1>System Information</h1>
+        <h1>System Informations</h1>
           <ul>
             <li>Hostname: {systemInfo.hostname}</li>
             <li>Platform: {systemInfo.platform}</li>
             <li>Architecture: {systemInfo.architecture}</li>
+            <li>CPUs: {systemInfo.cpus.length}</li>
             <li>Total Memory: {systemInfo.totalMemory}</li>
             <li>Free Memory: {systemInfo.freeMemory}</li>
           </ul>
