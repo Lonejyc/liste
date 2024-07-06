@@ -6,8 +6,8 @@ const systemInfo = {
     platform: os.platform(),
     architecture: os.arch(),
     cpus: os.cpus(),
-    totalMemory: Math.round(os.totalmem() / 1024 / 1024 / 1024),
-    freeMemory: Math.round(os.freemem() / 1024 / 1024 / 1024),
+    totalMemory: os.totalmem() / 1024 / 1024 / 1024,
+    freeMemory: os.freemem() / 1024 / 1024 / 1024,
     diskSpace: os.homedir(),
 };
 

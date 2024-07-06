@@ -50,6 +50,7 @@ export default function Home({ systemInfo }) {
             <li>CPUs: {systemInfo.cpus.length}</li>
             <li>Total Memory: {systemInfo.totalMemory}</li>
             <li>Free Memory: {systemInfo.freeMemory}</li>
+            <li>Disk Space: {systemInfo.diskSpace}</li>
           </ul>
       </div>
     </Layout>
