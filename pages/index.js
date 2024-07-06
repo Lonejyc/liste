@@ -3,6 +3,23 @@ import { useSession, signIn, signOut } from "next-auth/react";
 import Layout from '../components/Layout';
 import Link from "next/link";
 
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      props: {},
+    };
+  }
+
+  const response = await fetch('https://projects-list-j.netlify.app/api/system-info');
+  const systemInfo = await response.json();
+
+  return {
+    props: { systemInfo },
+  };
+}
+
 export default function Home({ systemInfo }) {
   const { data: session, status } = useSession();
 
