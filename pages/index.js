@@ -1,5 +1,5 @@
 // pages/index.js
-import { useSession, signIn, signOut } from "next-auth/react";
+import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import Layout from '../components/Layout';
 import Link from "next/link";
 
