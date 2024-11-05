@@ -12,7 +12,7 @@ export async function getServerSideProps(context) {
     };
   }
 
-  const response = await fetch('https://projects-list-j.netlify.app/api/system-info');
+  const response = await fetch('http://localhost/api/system-info');
   const systemInfo = await response.json();
 
   return {
@@ -22,6 +22,12 @@ export async function getServerSideProps(context) {
 
 export default function Home({ systemInfo }) {
   const { data: session, status } = useSession();
+
+  useEffect(() => {
+    if (systemInfo) {
+      console.log('System Info:', systemInfo);
+    }
+  }, [systemInfo]);
 
   const loading = status === 'loading';
   

@@ -22,12 +22,14 @@ export default function SignIn({ csrfToken }) {
   );
 }
 
-// Cette fonction récupère le token CSRF pour la protection contre les attaques CSRF
+// Cette fonction récupère le token CSRF pour la protection contre les attaques CSRF + l'erreur d'authentification
 export async function getServerSideProps(context) {
+  const { error } = context.query;
   const csrfToken = await getCsrfToken(context);
   return {
     props: {
       csrfToken: csrfToken || null,
+      error: error || null,
     },
   };
 }
