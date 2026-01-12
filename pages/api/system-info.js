@@ -10,7 +10,6 @@ export default function handler(req, res) {
       platform: os.platform(),
       architecture: os.arch(),
       cpus: os.cpus(),
-      totalMemory: os.totalmem(),
       totalMemory: convertBytesToGB(os.totalmem()),
       freeMemory: convertBytesToGB(os.freemem()),
       diskSpace: os.homedir(),
