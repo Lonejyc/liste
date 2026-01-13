@@ -13,16 +13,13 @@ export async function getServerSideProps(context) {
 
   try {
     const agentUrl = process.env.MONITOR_AGENT_URL || 'http://monitor-agent:5000/api/stats';
-    const response = await fetch(agentUrl, {
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if (!response.ok) throw new Error(`Agent répond avec status: ${response.status}`);
+    const response = await fetch(agentUrl);
+    if (!response.ok) throw new Error('Erreur Agent');
 
     const systemInfo = await response.json();
     return { props: { systemInfo } };
   } catch (error) {
-    console.error("DEBUG - Erreur fetch agent:", error.message);
+    console.error("Erreur serveur direct fetch:", error.message);
     return { props: { systemInfo: null } };
   }
 }
