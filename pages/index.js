@@ -12,7 +12,8 @@ export async function getServerSideProps(context) {
   if (!session) return { props: { systemInfo: null } };
 
   try {
-    const response = await fetch('http://monitor-agent:5000/api/stats', {
+    const agentUrl = process.env.MONITOR_AGENT_URL || 'http://monitor-agent:5000/api/stats';
+    const response = await fetch(agentUrl, {
       headers: { 'Accept': 'application/json' }
     });
 
