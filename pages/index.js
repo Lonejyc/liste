@@ -17,20 +17,23 @@ export async function getServerSideProps(context) {
   }
 
   try {
-    const response = await fetch('http://localhost:3000/api/system-info');
+    const apiUrl = process.env.NODE_ENV === 'prod'
+      ? 'http://127.0.0.1:3000/api/system-info'
+      : 'http://localhost:3000/api/system-info';
 
-    if (!response.ok) throw new Error('Erreur API');
+    const response = await fetch(apiUrl);
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      console.error("Erreur détaillée API:", errorData);
+      throw new Error('Erreur API');
+    }
 
     const systemInfo = await response.json();
-
-    return {
-      props: { systemInfo },
-    };
+    return { props: { systemInfo } };
   } catch (error) {
-    console.error("Erreur récupération systemInfo:", error);
-    return {
-      props: { systemInfo: null },
-    };
+    console.error("Erreur récupération systemInfo dans getServerSideProps:", error.message);
+    return { props: { systemInfo: null } };
   }
 }
 
