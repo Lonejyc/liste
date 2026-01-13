@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const agentUrl = process.env.MONITOR_AGENT_URL || 'http://monitor-agent:5000/api/stats';
+  const agentUrl = process.env.MONITOR_AGENT_URL || 'http://10.0.1.11:5000/api/stats';
 
   console.log(`[API System-Info] Tentative vers : ${agentUrl}`);
 

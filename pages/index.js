@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { getSession, useSession, signIn, signOut } from "next-auth/react";
 import Layout from '../components/Layout';
 import Link from "next/link";
@@ -22,8 +23,30 @@ export async function getServerSideProps(context) {
   }
 }
 
-export default function Home({ systemInfo }) {
+export default function Home({ systemInfo: initialData }) {
   const { data: session, status } = useSession();
+  const [systemInfo, setSystemInfo] = useState(initialData);
+
+  useEffect(() => {
+    let isMounted = true;
+    const fetchSystemInfo = async () => {
+      try {
+        const res = await fetch('/api/system-info');
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted) setSystemInfo(data);
+        }
+      } catch (error) {
+        console.error("Auto-refresh error:", error);
+      }
+    };
+
+    const interval = setInterval(fetchSystemInfo, 1000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
 
   if (status === 'loading') return <div className="min-h-screen flex items-center justify-center text-slate-300">Loading...</div>;
 
