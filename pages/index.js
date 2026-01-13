@@ -9,30 +9,19 @@ import { LuMemoryStick } from "react-icons/lu";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-
-  if (!session) {
-    return {
-      props: { systemInfo: null },
-    };
-  }
+  if (!session) return { props: { systemInfo: null } };
 
   try {
-    const apiUrl = process.env.NODE_ENV === 'prod'
-      ? 'http://127.0.0.1:3000/api/system-info'
-      : 'http://localhost:3000/api/system-info';
+    const response = await fetch('http://monitor-agent:5000/api/stats', {
+      headers: { 'Accept': 'application/json' }
+    });
 
-    const response = await fetch(apiUrl);
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      console.error("Erreur détaillée API:", errorData);
-      throw new Error('Erreur API');
-    }
+    if (!response.ok) throw new Error(`Agent répond avec status: ${response.status}`);
 
     const systemInfo = await response.json();
     return { props: { systemInfo } };
   } catch (error) {
-    console.error("Erreur récupération systemInfo dans getServerSideProps:", error.message);
+    console.error("DEBUG - Erreur fetch agent:", error.message);
     return { props: { systemInfo: null } };
   }
 }
