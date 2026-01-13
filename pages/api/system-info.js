@@ -1,19 +1,9 @@
-import os from 'os';
-
-function convertBytesToGB(bytes) {
-  return (bytes / 1024 / 1024 / 1024).toFixed(2);
-}
-
-export default function handler(req, res) {
-  const systemInfo = {
-      hostname: os.hostname(),
-      platform: os.platform(),
-      architecture: os.arch(),
-      cpus: os.cpus(),
-      totalMemory: convertBytesToGB(os.totalmem()),
-      freeMemory: convertBytesToGB(os.freemem()),
-      diskSpace: os.homedir(),
-  };
-
-  res.status(200).json(systemInfo);
+export default async function handler(req, res) {
+  try {
+    const response = await fetch('https://monitor-agent.jocelynmarcilloux.com/api/stats');
+    const data = await response.json();
+      res.status(200).json(data);
+    } catch (error) {
+      res.status(500).json({ error: "Agent de monitoring injoignable sur le réseau interne" });
+    }
 }
