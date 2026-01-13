@@ -3,48 +3,7 @@ import Link from "next/link";
 import Layout from '../../components/Layout';
 import { FiExternalLink, FiGithub, FiTerminal, FiGrid } from "react-icons/fi";
 
-const PROJECTS = [
-  {
-    id: 'portfolio-nono',
-    title: 'Portfolio Nono',
-    description: 'Modern portfolio built with TypeScript and creative interactions.',
-    tech: ['TypeScript', 'React', 'Vite'],
-    status: 'ONLINE',
-    link: 'https://github.com/Lonejyc/portfolio-nono'
-  },
-  {
-    id: 'poc-myrole',
-    title: 'PoC MyRole',
-    description: 'Role management system proof of concept.',
-    tech: ['PHP', 'Symfony', 'API Platform'],
-    status: 'DEV',
-    link: 'https://github.com/Lonejyc/poc-myrole'
-  },
-  {
-    id: 'weather-app',
-    title: 'Weather App',
-    description: 'Real-time weather dashboard with location services.',
-    tech: ['React', 'API', 'CSS'],
-    status: 'ONLINE',
-    link: 'https://github.com/Lonejyc/weather-app'
-  },
-  {
-    id: 'maze',
-    title: 'The Maze',
-    description: 'Interactive maze generator and solver algorithm visualization.',
-    tech: ['JavaScript', 'Canvas', 'Algorithms'],
-    status: 'OFFLINE',
-    link: 'https://github.com/Lonejyc/maze'
-  },
-  {
-    id: 'symfo-gobelins',
-    title: 'Symfo Gobelins',
-    description: 'Academic project exploring Symfony framework capabilities.',
-    tech: ['PHP', 'Symfony', 'API Platform'],
-    status: 'DEV',
-    link: 'https://github.com/Lonejyc/symfo-gobelins'
-  }
-];
+import PROJECTS from '../../data/projects.json';
 
 export default function Liste({ session }) {
   if (!session) return <div className="text-center mt-20 text-slate-500">Access Denied</div>;
@@ -95,7 +54,9 @@ export default function Liste({ session }) {
           {/* Add New Placeholder */}
           <div className="group border border-dashed border-white/10 rounded-2xl p-6 flex flex-col items-center justify-center gap-4 text-slate-600 hover:border-emerald-500/30 hover:text-emerald-500/50 transition-all cursor-pointer min-h-[300px]">
              <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-emerald-500/10 transition-colors">
-                <span className="text-4xl font-light">+</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6v12m6-6H6" />
+               </svg>
              </div>
              <p className="font-mono text-xs tracking-widest uppercase">Deploy New Unit</p>
           </div>

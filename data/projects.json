@@ -1,0 +1,42 @@
+[
+  {
+    "id": "portfolio-nono",
+    "title": "Portfolio Nono",
+    "description": "Modern portfolio built with TypeScript and creative interactions.",
+    "tech": ["TypeScript", "Next", "Tailwind"],
+    "status": "ONLINE",
+    "link": "https://www.dlndesign.pro"
+  },
+  {
+    "id": "poc-myrole",
+    "title": "PoC MyRole",
+    "description": "Role management system proof of concept.",
+    "tech": ["PHP", "Symfony", "API Platform"],
+    "status": "OFFLINE",
+    "link": "https://github.com/Lonejyc/poc-myrole"
+  },
+  {
+    "id": "budgy-app",
+    "title": "Budgy App",
+    "description": "Budget management app.",
+    "tech": ["Next", "Elysia", "Tailwind"],
+    "status": "DEV",
+    "link": "https://github.com/Lonejyc/budgy-app"
+  },
+  {
+    "id": "maze",
+    "title": "The Maze",
+    "description": "Interactive maze generator and solver algorithm visualization.",
+    "tech": ["JavaScript", "Canvas", "Algorithms"],
+    "status": "ONLINE",
+    "link": "https://github.com/Lonejyc/maze"
+  },
+  {
+    "id": "symfo-gobelins",
+    "title": "Symfo Gobelins",
+    "description": "Academic project exploring Symfony framework capabilities.",
+    "tech": ["PHP", "Symfony", "API Platform"],
+    "status": "ONLINE",
+    "link": "https://github.com/Lonejyc/symfo-gobelins"
+  }
+]
