@@ -1,78 +1,312 @@
-# 🎛️ Liste - Personal Server Dashboard
+# 🎛️ Liste — Personal Server Dashboard
 
-Un dashboard centralisé pour monitorer, gérer et accéder rapidement à l'ensemble des projets et services hébergés sur mon serveur personnel (Coolify).
+> **Un dashboard centralisé pour monitorer et gérer l'ensemble de mes projets hébergés sur mon infrastructure Coolify.**
 
-Ce projet sert de "Homepage" administrative, offrant une vue d'ensemble sur l'état des déploiements (Web & Mobile).
+Liste est une interface de contrôle moderne qui offre une vue d'ensemble en temps réel de mes projets web/mobile, avec métriques système en direct et gestion centralisée des déploiements.
+
+---
+
+## 📸 Vue d'ensemble
+
+**Dashboard principal** : Métriques système en temps réel (CPU, RAM, Disque, Réseau, Uptime)  
+**Matrix des projets** : Grille visuelle de tous les projets avec status, technologies et liens rapides  
+**Authentification sécurisée** : Protection par NextAuth avec whitelist IP et credentials
+
+---
 
 ## ⚡ Stack Technique
 
-* **Framework :** [Next.js 14](https://nextjs.org/) (React)
-* **Styling :** Tailwind CSS
-* **Authentification :** NextAuth.js (Sécurisation de l'accès au dashboard)
-* **Monitoring Système :** `systeminformation` & API interne
-* **Icons :** React Icons (Feather/FontAwesome)
+### **Core Framework**
+- **Next.js 15** (Pages Router) — Framework React pour SSR et API Routes
+- **React 19** — Bibliothèque UI
+- **NextAuth.js 4.24.7** — Authentification avec stratégie JWT
+
+### **Styling & UI**
+- **Tailwind CSS 3.4** — Utility-first CSS framework
+- **React Icons 5.5** — Collection d'icônes (Feather, FontAwesome, HeroIcons)
+- **Aesthetic** : Design glassmorphism dark mode avec accents emerald et effet "cyberpunk"
+
+### **Monitoring & System**
+- **systeminformation 5.22** — Collecte de métriques système (Node.js)
+- **Agent Python externe** (port 8000) — Service de monitoring avancé
+- **Sparkline charts** — Visualisation temps réel des historiques CPU/RAM
+
+### **Configuration**
+- **jsconfig.json** — Path aliases (`@/*`, `@api/*`)
+- **PostCSS + Tailwind** — Pipeline de transformation CSS
+
+---
 
 ## 🚀 Fonctionnalités
 
-### Actuelles
-* **Project Matrix :** Liste visuelle des projets sous forme de cartes.
-* **Status Indicators :** Badges d'état manuel (ONLINE, DEV, OFFLINE) définis dans `data/projects.json`.
-* **Tech Stack Badges :** Visualisation rapide des technologies utilisées par projet (Symfony, Next, etc.).
-* **Quick Launch :** Liens directs vers les environnements de production ou les repos GitHub.
-* **Agent Connection :** Tentative de connexion à un agent de monitoring local via `pages/api/system-info.js`.
+### ✅ **Actuellement implémenté**
 
-### 🚧 Roadmap & Monitoring (WIP)
-L'objectif est d'étendre ce dashboard pour en faire un véritable outil de **Health Check** en temps réel pour l'infrastructure Coolify :
+#### 🏠 Dashboard Système (`/`)
+- **Métriques en temps réel** (refresh automatique toutes les 1s)
+  - CPU : Usage %, température, fréquence
+  - RAM : Usage %, allouée/totale
+  - Disque : Usage %, espace libre
+  - Réseau : Upload/Download I/O
+  - Système : Uptime formaté, OS platform/release/architecture
+- **Graphiques sparkline** : Historique des 30 dernières mesures CPU/RAM
+- **SSR + CSR** : Données initiales en server-side, puis client-side polling
 
-- [ ] **Ping & Latency :** Affichage en temps réel du ping (ms) pour chaque service.
-- [ ] **Uptime Automatisé :** Vérification périodique du code HTTP (200 OK) pour remplacer les status manuels.
-- [ ] **Server Stats :** Visualisation CPU/RAM/Disk du serveur hôte.
-- [ ] **Docker Integration :** État des conteneurs via l'API Docker/Coolify.
+#### 🗂️ Matrix des Projets (`/liste`)
+- **Vue grille** : 5 projets actuellement configurés
+- **Badges de status** : ONLINE (vert), DEV (jaune), OFFLINE (rouge)
+- **Tech stack tags** : Technologies utilisées par projet
+- **Quick launch** : Liens directs vers prod/staging/repo GitHub
+- **Données statiques** : Chargées depuis `data/projects.json`
+
+**Projets actuels** :
+1. **Portfolio Nono** (ONLINE) — TypeScript, Next.js, Tailwind
+2. **PoC MyRole** (OFFLINE) — PHP, Symfony, API Platform
+3. **Budgy App** (DEV) — Next.js, Elysia, Tailwind
+4. **The Maze** (ONLINE) — JavaScript, Canvas, Algorithmes
+5. **Symfo Gobelins** (ONLINE) — PHP, Symfony, API Platform
+
+#### 🔐 Authentification
+- **NextAuth custom provider** : Credentials + IP whitelist
+- **IPs autorisées** : `176.150.41.253`, `82.66.241.186`
+- **Fallback** : Username/password depuis `.env.local`
+- **Session JWT** : Tokens sécurisés avec rotation automatique
+- **Page de connexion custom** : UI glassmorphic avec protection CSRF
+
+#### 🔌 API Routes
+- **`/api/system-info`** (GET) — Proxy vers agent de monitoring Python
+- **`/api/explore`** (GET) — Liste des fichiers du répertoire `/public`
+- **`/api/auth/[...nextauth]`** — Endpoints NextAuth (sign in/out, session)
+
+---
+
+### 🚧 **Roadmap (Prochaines évolutions)**
+
+L'objectif à terme est de transformer ce dashboard en **Control Plane complet** pour Coolify :
+
+#### Phase 1 : Intégration Coolify API
+- [ ] **Connexion Coolify REST API** : Proxy routes vers l'instance Coolify
+- [ ] **Chargement dynamique des projets** : Remplacer `projects.json` par des appels API
+- [ ] **Status réels** : Récupération automatique de l'état des containers Docker
+- [ ] **Health checks automatisés** : Ping/latency en temps réel pour chaque service
+
+#### Phase 2 : Gestion des Déploiements
+- [ ] **Trigger deployments** : Interface pour lancer/arrêter/redémarrer des applications
+- [ ] **Logs en temps réel** : Visualisation des logs Coolify directement dans l'UI
+- [ ] **Notifications** : Alertes en cas de déploiement échoué
+- [ ] **Templates Nixpacks/Docker** : Configuration automatisée pour éviter les erreurs
+
+#### Phase 3 : Migration Technique
+- [ ] **Migrer vers App Router** (Next.js 13+)
+- [ ] **Conversion TypeScript** : Refactoriser `.js` → `.ts/.tsx`
+- [ ] **Intégrer Shadcn/UI** : Remplacer composants custom par design system Shadcn
+- [ ] **Ajouter Lucide React** : Remplacer React Icons par Lucide
+
+#### Phase 4 : Monitoring Avancé
+- [ ] **Dashboard multi-serveurs** : Support de plusieurs instances Coolify
+- [ ] **Métriques Docker** : CPU/RAM par container
+- [ ] **Alerting system** : Webhooks Discord/Slack en cas d'incident
+- [ ] **Historique des déploiements** : Timeline avec rollback possible
+
+---
 
 ## 🛠️ Installation & Développement
 
-### Pré-requis
-* Node.js 18+
-* Un serveur (VPS/Dedicated) ou un environnement local.
+### **Pré-requis**
+- **Node.js 18+** (recommandé : 20 LTS)
+- **npm** ou **pnpm**
+- **Agent de monitoring Python** (optionnel, pour métriques système)
 
-### Setup
+### **1. Cloner le repository**
+```bash
+git clone github.com/Lonejyc/liste.git
+cd liste
+```
 
-1.  **Cloner le repo :**
-    ```bash
-    git clone <votre-repo-url>
-    cd liste
-    ```
+### **2. Installer les dépendances**
+```bash
+npm install
+```
 
-2.  **Installer les dépendances :**
-    ```bash
-    npm install
-    ```
+### **3. Configuration de l'environnement**
 
-3.  **Configuration d'environnement (.env.local) :**
-    Créez un fichier `.env.local` à la racine :
-    ```env
-    NEXTAUTH_URL=http://localhost:3000
-    NEXTAUTH_SECRET=votre_secret_super_securise
-    # URL de l'agent de monitoring (optionnel, voir api/system-info.js)
-    MONITOR_AGENT_URL=[http://10.0.1.11:5000/api/stats](http://10.0.1.11:5000/api/stats)
-    ```
+Créer un fichier `.env.local` à la racine du projet :
 
-4.  **Lancer en dev :**
-    ```bash
-    npm run dev
-    ```
+```env
+# URL de l'application (local ou production)
+NEXTAUTH_URL=http://localhost:3000
 
-## 📂 Structure des Données
+# Secrets pour NextAuth (générer avec `openssl rand -base64 32`)
+NEXTAUTH_SECRET=votre_secret_super_securise_ici
+JWT_SECRET=votre_jwt_secret_ici
 
-Les projets affichés sont gérés via le fichier `data/projects.json`.
-Format actuel :
+# Credentials administrateur
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=votre_mot_de_passe_securise
 
-```json
-{
-  "id": "nom-projet",
-  "title": "Titre Affiché",
-  "description": "Courte description...",
-  "tech": ["Next", "Tailwind"],
-  "status": "ONLINE", // ONLINE | DEV | OFFLINE
-  "link": "[https://url-du-projet.com](https://url-du-projet.com)"
-}
+# URL de l'agent de monitoring externe (optionnel)
+MONITOR_AGENT_URL=http://localhost:8000/api/stats
+```
+
+### **4. Lancer le serveur de développement**
+```bash
+npm run dev
+```
+
+L'application sera disponible sur **http://localhost:3000**
+
+### **5. Build de production**
+```bash
+npm run build
+npm run start
+```
+
+---
+
+## 📂 Structure du Projet
+
+```
+liste/
+├── pages/                          # Pages Router (Next.js)
+│   ├── _app.js                     # Global app wrapper + SessionProvider
+│   ├── index.js                    # Dashboard système (métriques temps réel)
+│   ├── liste/
+│   │   └── index.js                # Matrix des projets
+│   ├── auth/
+│   │   └── signin.js               # Page de connexion custom
+│   └── api/                        # API Routes
+│       ├── auth/
+│       │   └── [...nextauth].js    # Configuration NextAuth
+│       ├── system-info.js          # Proxy vers agent de monitoring
+│       └── explore.js              # Exploration fichiers publics
+│
+├── components/
+│   └── Layout.js                   # Layout global (header, nav, footer)
+│
+├── data/
+│   └── projects.json               # Données des projets (à migrer vers Coolify API)
+│
+├── styles/
+│   ├── globals.css                 # Styles globaux + scrollbar custom
+│   └── Home.module.css             # CSS modules (legacy)
+│
+├── public/
+│   ├── background.webp             # Image de fond principale
+│   └── favicon.ico
+│
+├── .env                            # Variables d'environnement
+├── CLAUDE.md                       # Instructions pour l'assistant AI
+├── package.json                    # Dépendances & scripts
+├── jsconfig.json                   # Configuration path aliases
+├── tailwind.config.js              # Configuration Tailwind
+└── next.config.mjs                 # Configuration Next.js
+```
+
+---
+
+## 📊 Architecture & Patterns
+
+### **Authentification Flow**
+1. User accède à une page protégée
+2. Middleware NextAuth vérifie la session JWT
+3. Si non authentifié → redirect `/auth/signin`
+4. Page de connexion :
+   - **IP whitelisting** : IPs autorisées passent directement
+   - **Credentials** : Formulaire username/password
+5. Si authentifié → session stockée en JWT (pas de DB)
+
+### **Monitoring System**
+1. **Server-Side Rendering** : `getServerSideProps` fetch initial data
+2. **Client-Side Polling** : `useEffect` appelle `/api/system-info` toutes les 1s
+3. **Proxy API Route** : Next.js → Agent Python externe (port 8000)
+4. **Sparkline History** : Stocke les 30 dernières mesures en état React
+5. **UI Update** : Composants re-render avec nouvelles données
+
+### **Projects Data Flow**
+```
+data/projects.json → getServerSideProps → SSR → Client Hydration → Matrix UI
+```
+
+**À venir** : Remplacer par appels directs à l'API Coolify
+
+---
+
+## 🔒 Sécurité
+
+### **Mesures implémentées**
+✅ **NextAuth JWT** : Sessions sans base de données  
+✅ **IP Whitelisting** : Limitation des IPs autorisées  
+✅ **Credentials hashing** : (recommandé : ajouter bcrypt pour passwords)  
+✅ **CSRF Protection** : Tokens NextAuth intégrés  
+✅ **Environment variables** : Secrets non versionnés  
+✅ **SSR Auth checks** : Redirection server-side si non authentifié  
+
+### **Recommandations**
+- [ ] Ajouter **rate limiting** sur `/api/auth`
+- [ ] Implémenter **2FA** pour l'authentification
+- [ ] Logger les tentatives de connexion échouées
+- [ ] Rotate les secrets JWT régulièrement
+
+---
+
+## 📜 Scripts Disponibles
+
+```bash
+npm run dev      # Lancer le serveur de développement (port 3000)
+npm run build    # Créer un build de production optimisé
+npm run start    # Lancer le serveur de production
+npm run export   # Générer un export statique (SSG)
+npm run lint     # Linter Next.js (ESLint)
+```
+
+---
+
+## 🐛 Dépendances Externes
+
+### **Agent de Monitoring Python** (optionnel)
+Le dashboard nécessite un agent Python externe pour collecter les métriques système avancées.
+
+**Configuration** :
+- **URL** : Définie dans `MONITOR_AGENT_URL` (`.env.local`)
+- **Endpoint** : `GET /api/stats`
+- **Port par défaut** : `8000`
+
+**Comportement si agent indisponible** :
+- `/api/system-info` retourne une erreur 500
+- Le dashboard affiche un état de chargement infini (amélioration à prévoir)
+
+---
+
+## 🤝 Contribution & Développement
+
+### **Conventions de code**
+- **Modularité** : Composants réutilisables dans `/components`
+- **Clarté > Cleverness** : Code lisible et maintainable avant tout
+- **Error Handling** : Toujours gérer les états d'erreur et de chargement
+- **Types** : (À venir) Utiliser TypeScript pour la sûreté des types
+
+### **Workflow Git**
+1. Créer une branche feature : `git checkout -b feature/nom-feature`
+2. Commit avec messages descriptifs : `feat: ajout du système de notifications`
+3. Push et créer une PR
+4. Review → Merge sur `main`
+
+---
+
+## 📄 Licence
+
+**Projet personnel** — Tous droits réservés.  
+Ce dashboard est créé pour un usage personnel. Si vous souhaitez l'utiliser ou le modifier, contactez-moi.
+
+---
+
+## 📞 Contact
+
+**Auteur** : Jocelyn  
+**Projet** : Liste — Personal Server Dashboard  
+**Repository** : [Lien vers le repo](https://github.com/Lonejyc/liste)
+
+---
+
+**Status du projet** : 🟡 **En développement actif**  
+**Version** : 0.0.1 (Monitoring Dashboard)  
+**Next milestone** : Intégration Coolify API (v1.0)
