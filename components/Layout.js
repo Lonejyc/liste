@@ -1,7 +1,7 @@
 // components/Layout.js
 import Head from 'next/head';
 import Link from 'next/link';
-import { signIn, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 
 const Layout = ({ children, title = 'Projets' }) => {
 
@@ -22,6 +22,7 @@ const Layout = ({ children, title = 'Projets' }) => {
                 <nav className="flex items-center gap-6">
                     <Link href="/">Home</Link>
                     {isAuthenticated && <Link href="/liste">Projects</Link>}
+                    {isAuthenticated && <Link href="/test-coolify" className="text-emerald-400">Test Coolify</Link>}
                 </nav>
                 <nav className='flex items-center gap-6 text-sm'>
                     {!isAuthenticated && <button className='inline-block shrink-0 rounded-md bg-emerald-800 px-4 py-1.5 text-sm font-semibold text-slate-300 transition-all esae-in duration-300 hover:bg-slate-300 hover:text-emerald-800 hover:font-bold focus:outline-none active:outline-none' onClick={() => signIn()}>Sign In</button>}
