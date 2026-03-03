@@ -160,73 +160,113 @@ export default function TestCoolify() {
                   </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {data.applications.map((app) => (
-                    <div
-                      key={app.uuid}
-                      className="bg-slate-800/50 backdrop-blur-sm border border-slate-700/50 rounded-lg p-5 hover:border-slate-600/50 transition-all"
-                    >
-                      {/* Header: Nom + Status */}
-                      <div className="flex items-start justify-between gap-3 mb-3">
-                        <h3 className="text-lg font-semibold text-slate-100 line-clamp-1">
-                          {app.name}
-                        </h3>
-                        <StatusBadge status={app.status} size="sm" />
-                      </div>
-
-                      {/* Description (si existe) */}
-                      {app.description && (
-                        <p className="text-sm text-slate-400 mb-3 line-clamp-2">
-                          {app.description}
-                        </p>
-                      )}
-
-                      {/* Infos */}
-                      <div className="space-y-2 text-sm">
-                        {/* FQDN */}
-                        {app.fqdn && (
-                          <div className="flex items-center gap-2 text-slate-400">
-                            <FiExternalLink className="flex-shrink-0" />
-                            <a
-                              href={app.fqdn}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="truncate hover:text-emerald-400 transition-colors"
-                            >
-                              {app.fqdn.replace(/^https?:\/\//, '')}
-                            </a>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {data.applications.map((app) => {
+                    // Déterminer la couleur de bordure selon le status
+                    const statusColors = {
+                      running: 'border-l-emerald-500 hover:border-emerald-500/50',
+                      stopped: 'border-l-red-500 hover:border-red-500/50',
+                      degraded: 'border-l-yellow-500 hover:border-yellow-500/50',
+                      restarting: 'border-l-blue-500 hover:border-blue-500/50',
+                      exited: 'border-l-slate-500 hover:border-slate-500/50',
+                      unknown: 'border-l-slate-500 hover:border-slate-500/50',
+                    };
+                    
+                    const borderColor = statusColors[app.status] || statusColors.unknown;
+                    
+                    return (
+                      <div
+                        key={app.uuid}
+                        className={`
+                          group relative
+                          bg-gradient-to-br from-slate-800/50 to-slate-900/50 
+                          backdrop-blur-sm 
+                          border-l-4 border-t border-r border-b
+                          border-slate-700/50
+                          ${borderColor}
+                          rounded-lg p-6
+                          hover:shadow-xl hover:shadow-emerald-500/5
+                          transition-all duration-300
+                          hover:-translate-y-1
+                        `}
+                      >
+                        {/* Header: Nom + Status */}
+                        <div className="flex items-start justify-between gap-3 mb-4">
+                          <div className="flex-1 min-w-0">
+                            <h3 className="text-xl font-bold text-slate-100 truncate mb-1 group-hover:text-emerald-400 transition-colors">
+                              {app.name}
+                            </h3>
+                            {app.description && (
+                              <p className="text-sm text-slate-400 line-clamp-2 leading-relaxed">
+                                {app.description}
+                              </p>
+                            )}
                           </div>
-                        )}
-
-                        {/* Git Repository */}
-                        {app.git_repository && (
-                          <div className="flex items-center gap-2 text-slate-400">
-                            <FiGithub className="flex-shrink-0" />
-                            <span className="truncate text-xs font-mono">
-                              {app.git_repository}
-                              {app.git_branch && ` (${app.git_branch})`}
-                            </span>
-                          </div>
-                        )}
-
-                        {/* Build Pack */}
-                        {app.build_pack && app.build_pack !== 'unknown' && (
-                          <div className="mt-2 pt-2 border-t border-slate-700/50">
-                            <span className="inline-block px-2 py-1 text-xs rounded bg-slate-700/50 text-slate-300 font-mono">
-                              {app.build_pack}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-
-                      {/* Footer: Last Update */}
-                      {app.updated_at && (
-                        <div className="mt-3 pt-3 border-t border-slate-700/50 text-xs text-slate-500">
-                          Màj {new Date(app.updated_at).toLocaleDateString('fr-FR')}
+                          <StatusBadge status={app.status} size="md" />
                         </div>
-                      )}
-                    </div>
-                  ))}
+
+                        {/* Infos avec icônes */}
+                        <div className="space-y-3 text-sm mb-4">
+                          {/* FQDN */}
+                          {app.fqdn && (
+                            <div className="flex items-center gap-2.5 text-slate-400 group/link">
+                              <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded bg-emerald-500/10 text-emerald-400">
+                                <FiExternalLink className="text-xs" />
+                              </div>
+                              <a
+                                href={app.fqdn}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="truncate hover:text-emerald-400 transition-colors font-medium"
+                              >
+                                {app.fqdn.replace(/^https?:\/\//, '')}
+                              </a>
+                            </div>
+                          )}
+
+                          {/* Git Repository */}
+                          {app.git_repository && (
+                            <div className="flex items-center gap-2.5 text-slate-400">
+                              <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center rounded bg-slate-500/10 text-slate-400">
+                                <FiGithub className="text-xs" />
+                              </div>
+                              <span className="truncate text-xs font-mono">
+                                {app.git_repository.split('/').slice(-2).join('/')}
+                                {app.git_branch && (
+                                  <span className="ml-1 text-emerald-400">
+                                    @ {app.git_branch}
+                                  </span>
+                                )}
+                              </span>
+                            </div>
+                          )}
+
+                          {/* Build Pack Badge */}
+                          {app.build_pack && app.build_pack !== 'unknown' && (
+                            <div className="flex items-center gap-2">
+                              <span className="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-slate-700/50 text-slate-300 font-mono border border-slate-600/30">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                {app.build_pack}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Footer: Last Update */}
+                        {app.updated_at && (
+                          <div className="pt-3 mt-3 border-t border-slate-700/30 flex items-center justify-between text-xs text-slate-500">
+                            <span>Màj {new Date(app.updated_at).toLocaleDateString('fr-FR')}</span>
+                            <span className="text-slate-600">#{app.uuid.slice(0, 8)}</span>
+                          </div>
+                        )}
+
+                        {/* Hover Glow Effect */}
+                        <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                          <div className="absolute inset-0 rounded-lg bg-gradient-to-br from-emerald-500/5 to-transparent"></div>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

@@ -78,19 +78,29 @@ export default async function handler(req, res) {
     // Appel 2 : Récupérer toutes les applications
     const applicationsData = await coolifyFetch('/applications');
     console.log(`✅ Found ${applicationsData.length || 0} applications`);
+    
+    // Debug: Log première app pour voir la structure exacte
+    if (applicationsData.length > 0) {
+      console.log('📊 First app structure:', JSON.stringify(applicationsData[0], null, 2));
+    }
 
     // Formater les données pour le frontend
-    const applications = (applicationsData || []).map(app => ({
-      uuid: app.uuid,
-      name: app.name,
-      description: app.description || null,
-      status: app.status || 'unknown',
-      fqdn: app.fqdn || null,
-      git_repository: app.git_repository || null,
-      git_branch: app.git_branch || null,
-      build_pack: app.build_pack || 'unknown',
-      updated_at: app.updated_at || null,
-    }));
+    const applications = (applicationsData || []).map(app => {
+      // Debug chaque app individuellement
+      console.log(`🔍 App "${app.name}" - status field:`, app.status);
+      
+      return {
+        uuid: app.uuid,
+        name: app.name,
+        description: app.description || null,
+        status: app.status || 'unknown',
+        fqdn: app.fqdn || null,
+        git_repository: app.git_repository || null,
+        git_branch: app.git_branch || null,
+        build_pack: app.build_pack || 'unknown',
+        updated_at: app.updated_at || null,
+      };
+    });
 
     // Réponse réussie
     return res.status(200).json({
