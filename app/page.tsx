@@ -1,14 +1,13 @@
 /**
  * App Router - Home Page
  * 
- * Page d'accueil du dashboard Coolify Control Plane.
- * Temporairement, redirige vers /test-coolify (Pages Router)
- * En attendant la migration complète.
+ * Page d'accueil - redirige vers le dashboard système.
+ * Temporaire pendant la migration vers App Router.
  */
 
 import { redirect } from 'next/navigation';
 
 export default function HomePage() {
-  // Temporairement, rediriger vers la page test en Pages Router
-  redirect('/test-coolify');
+  // Rediriger vers le dashboard système (Pages Router)
+  redirect('/dashboard');
 }

@@ -323,3 +323,25 @@ export interface CoolifyVersion {
   version: string;
   status: 'success' | 'error';
 }
+
+// ============================================
+// Action Response Types
+// ============================================
+
+export interface CoolifyActionResponse {
+  message: string;
+  deployment_uuid?: string;
+}
+
+export interface CoolifyErrorResponse {
+  message: string;
+  error?: string;
+  errors?: Record<string, string[]>;
+}
+
+// Application action results
+export interface ApplicationActionResult {
+  success: boolean;
+  message: string;
+  deployment_uuid?: string;
+}
