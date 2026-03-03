@@ -39,20 +39,20 @@ export const authOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        token.id = user.id;
-        token.email = user.email;
-        token.name = user.name;
+        token.id = user.id || null;
+        token.email = user.email || null;
+        token.name = user.name || null;
       }
       return token;
     },
     async session({ session, token }) {
-      if (token) {
-        session.user.id = token.id;
-        session.user.email = token.email;
-        session.user.name = token.name;
-        // Fix: Toujours retourner null au lieu de undefined pour éviter serialization error
-        session.user.image = null;
-      }
+      // Fix: Toujours retourner null au lieu de undefined pour éviter serialization error
+      session.user = {
+        id: token.id || null,
+        email: token.email || null,
+        name: token.name || null,
+        image: null
+      };
       return session;
     }
   }
