@@ -5,12 +5,12 @@
  * (application, database, service, etc.)
  * 
  * Possible statuses:
- * - running: 🟢 Green (currently running)
- * - stopped: 🔴 Red (stopped)
- * - degraded: 🟡 Yellow (degraded/issue)
- * - restarting: 🔵 Blue (restarting)
- * - exited: ⚫ Gray (crashed/exited)
- * - unknown: ⚪ White (unknown status)
+ * - running: Green (currently running)
+ * - stopped: Red (stopped)
+ * - degraded: Yellow (degraded/issue)
+ * - restarting: Blue (restarting)
+ * - exited: Gray (crashed/exited)
+ * - unknown: White (unknown status)
  */
 
 import { FiCircle, FiCheckCircle, FiXCircle, FiAlertCircle, FiRefreshCw } from 'react-icons/fi';

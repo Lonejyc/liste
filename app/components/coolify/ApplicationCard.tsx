@@ -43,7 +43,7 @@ const ApplicationCard = ({ app, onActionComplete }: ApplicationCardProps) => {
         throw new Error(result.message || 'Deployment failed');
       }
 
-      toast.success(`🚀 Deployment started for ${app.name}`);
+      toast.success(`Deployment started for ${app.name}`);
       
       // Refresh application list after action
       if (onActionComplete) {
@@ -74,7 +74,7 @@ const ApplicationCard = ({ app, onActionComplete }: ApplicationCardProps) => {
         throw new Error(result.message || 'Stop failed');
       }
 
-      toast.success(`⏹️ ${app.name} stopped`);
+      toast.success(`${app.name} stopped`);
       
       if (onActionComplete) {
         setTimeout(onActionComplete, 1000);
@@ -104,7 +104,7 @@ const ApplicationCard = ({ app, onActionComplete }: ApplicationCardProps) => {
         throw new Error(result.message || 'Restart failed');
       }
 
-      toast.success(`🔄 ${app.name} restarting...`);
+      toast.success(`${app.name} restarting...`);
       
       if (onActionComplete) {
         setTimeout(onActionComplete, 1000);

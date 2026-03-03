@@ -8,12 +8,12 @@
  * @param {string} size - Taille du badge ('sm', 'md', 'lg')
  * 
  * Status possibles:
- * - running: 🟢 Vert (en cours d'exécution)
- * - stopped: 🔴 Rouge (arrêté)
- * - degraded: 🟡 Jaune (dégradé/problème)
- * - restarting: 🔵 Bleu (redémarrage en cours)
- * - exited: ⚫ Gris (crash/sortie)
- * - unknown: ⚪ Blanc (statut inconnu)
+ * - running: Vert (en cours d'exécution)
+ * - stopped: Rouge (arrêté)
+ * - degraded: Jaune (dégradé/problème)
+ * - restarting: Bleu (redémarrage en cours)
+ * - exited: Gris (crash/sortie)
+ * - unknown: Blanc (statut inconnu)
  */
 
 import { FiCircle, FiCheckCircle, FiXCircle, FiAlertCircle, FiRefreshCw } from 'react-icons/fi';

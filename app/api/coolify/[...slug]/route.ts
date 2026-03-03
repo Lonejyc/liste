@@ -111,7 +111,7 @@ async function handleRequest(
     return NextResponse.json(data, { status: response.status });
 
   } catch (error) {
-    console.error('❌ Coolify API Error:', error);
+    console.error('[Coolify API Error]:', error);
 
     // Déterminer le type d'erreur
     let statusCode = 500;

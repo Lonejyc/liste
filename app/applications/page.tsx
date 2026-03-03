@@ -16,7 +16,7 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import { FiLoader, FiCheck, FiX, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import { FiLoader, FiCheck, FiX, FiChevronDown, FiChevronUp, FiPackage, FiAlertCircle } from 'react-icons/fi';
 import { Toaster } from 'react-hot-toast';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -84,8 +84,11 @@ export default function ApplicationsPage() {
                 </p>
 
                 <div className="mt-4 text-sm text-slate-400">
-                  <p className="font-medium mb-2">💡 Suggestions:</p>
-                  <ul className="list-disc list-inside space-y-1 text-xs">
+                  <div className="flex items-center gap-2 mb-2">
+                    <FiAlertCircle className="text-yellow-500" />
+                    <p className="font-medium">Suggestions:</p>
+                  </div>
+                  <ul className="list-disc list-inside space-y-1 text-xs ml-6">
                     <li>Verify that COOLIFY_API_URL is correct in .env.local</li>
                     <li>Verify that COOLIFY_API_TOKEN is valid</li>
                     <li>Verify that your Coolify instance is accessible</li>
@@ -130,7 +133,8 @@ export default function ApplicationsPage() {
             {/* Applications List */}
             <div>
               <h2 className="text-2xl font-bold text-slate-100 mb-4 flex items-center gap-2">
-                📦 Applications
+                <FiPackage className="text-emerald-400" />
+                Applications
                 <span className="text-sm font-normal text-slate-500">({data.count})</span>
               </h2>
 
