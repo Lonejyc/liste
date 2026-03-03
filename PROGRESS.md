@@ -95,7 +95,69 @@ package-lock.json             # Lockfile mis à jour
 
 ---
 
-## 🚧 Jour 2 : Infrastructure API (EN COURS)
+## ✅ Jour 1.5 : Page Test Coolify (TERMINÉ)
+
+### **Objectifs**
+- ✅ Créer une page de test pour valider la connexion API Coolify
+- ✅ Afficher la liste des applications avec leur status
+- ✅ Améliorer le design des cartes (plus attrayant)
+
+### **Réalisations**
+
+#### **1. API Route Proxy**
+- ✅ Fichier `pages/api/coolify/test.js`
+  - Combine endpoints `/version` et `/applications`
+  - Authentification NextAuth requise
+  - Error handling complet (timeout, network, auth)
+  - Parse le format composite de status (`running:unhealthy` → `running`)
+  - Logs détaillés pour debugging
+
+#### **2. Composant StatusBadge**
+- ✅ Fichier `components/coolify/StatusBadge.js`
+  - Badges colorés pour tous les status (running/stopped/exited/degraded/restarting)
+  - 3 tailles disponibles (sm/md/lg)
+  - Icons react-icons (FiCheckCircle, FiXCircle, etc.)
+  - Design glassmorphism cohérent
+  - Animation pour status "restarting"
+
+#### **3. Page Test**
+- ✅ Fichier `pages/test-coolify.js`
+  - Protected par NextAuth (redirect si non auth)
+  - SWR pour data fetching avec manual refresh
+  - Affiche version Coolify + status connexion
+  - Liste des applications avec :
+    - Nom, description, status badge
+    - FQDN (lien cliquable)
+    - Git repository + branche (highlight emerald)
+    - Build pack type avec dot indicator
+    - Date dernière màj
+    - UUID preview (8 premiers chars)
+  - Design amélioré :
+    - Bordures colorées selon status (gauche)
+    - Gradient background (slate-800 → slate-900)
+    - Hover effects (lift + glow emerald)
+    - Icons dans backgrounds colorés
+    - Typography améliorée
+    - Grid responsive (1/2/3 colonnes)
+  - Loading state avec spinner
+  - Error state avec détails techniques collapsibles
+  - Messages user-friendly + tips troubleshooting
+
+#### **4. Bugfixes**
+- ✅ Fix `authOptions` export (NextAuth)
+- ✅ Fix session serialization (user.id, user.image undefined)
+- ✅ Parse composite status format Coolify (`state:health`)
+
+### **Stats**
+- **Fichiers créés** : 3 (test.js, StatusBadge.js, test-coolify.js)
+- **Fichiers modifiés** : 2 (Layout.js, [...nextauth].js)
+- **Lignes de code** : ~700+
+- **Commits** : 4
+- **Applications détectées** : 12 (7 running, 5 exited)
+
+---
+
+## 🚧 Jour 2 : Infrastructure API + App Router (EN COURS)
 
 ### **Objectifs**
 - [ ] Setup structure `/app` directory
