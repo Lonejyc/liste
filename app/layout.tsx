@@ -3,10 +3,14 @@
  * 
  * Layout global pour toutes les pages de l'application App Router.
  * Inclut le SessionProvider NextAuth et les styles globaux.
+ * 
+ * Note: This is a Server Component. Context providers are wrapped
+ * in a separate Client Component (Providers.tsx) to avoid
+ * "React Context is unavailable in Server Components" errors.
  */
 
 import type { Metadata } from 'next';
-import { SessionProvider } from 'next-auth/react';
+import { Providers } from './components/Providers';
 import '../styles/globals.css';
 
 export const metadata: Metadata = {
@@ -25,9 +29,9 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className="bg-grain-background bg-cover min-h-screen text-slate-300">
-        <SessionProvider>
+        <Providers>
           {children}
-        </SessionProvider>
+        </Providers>
       </body>
     </html>
   );
