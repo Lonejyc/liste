@@ -143,7 +143,7 @@ export default function Home({ systemInfo: initialData }) {
                 )}
               </div>
               <div className="flex items-baseline gap-2 mb-4">
-                 <p className="text-4xl font-mono font-light text-slate-100">{systemInfo.cpu.usage_percent}<span className="text-lg text-slate-500">%</span></p>
+                 <p className="text-4xl font-mono font-light text-slate-100 tabular-nums">{systemInfo.cpu.usage_percent}<span className="text-lg text-slate-500">%</span></p>
               </div>
               
               <div className="h-8 mb-4">
@@ -159,7 +159,7 @@ export default function Home({ systemInfo: initialData }) {
             <div className="bg-black/20 backdrop-blur-md border border-white/5 p-6 rounded-2xl hover:border-emerald-500/20 transition-all group">
               <p className="text-[10px] text-slate-500 font-mono tracking-widest uppercase mb-4">Memory Allocation</p>
               <div className="flex justify-between items-end mb-2">
-                <p className="text-3xl font-mono font-light text-slate-100">{systemInfo.memory.percent}<span className="text-lg text-slate-500">%</span></p>
+                <p className="text-3xl font-mono font-light text-slate-100 tabular-nums">{systemInfo.memory.percent}<span className="text-lg text-slate-500">%</span></p>
                 <p className="text-[10px] font-mono text-slate-400">{systemInfo.memory.used} / {systemInfo.memory.total}</p>
               </div>
               
@@ -176,7 +176,7 @@ export default function Home({ systemInfo: initialData }) {
             <div className="bg-black/20 backdrop-blur-md border border-white/5 p-6 rounded-2xl hover:border-emerald-500/20 transition-all group">
               <p className="text-[10px] text-slate-500 font-mono tracking-widest uppercase mb-4">Storage Matrix</p>
               <div className="flex justify-between items-end mb-2">
-                <p className="text-3xl font-mono font-light text-slate-100">{systemInfo.disk.percent}<span className="text-lg text-slate-500">%</span></p>
+                <p className="text-3xl font-mono font-light text-slate-100 tabular-nums">{systemInfo.disk.percent}<span className="text-lg text-slate-500">%</span></p>
                 <p className="text-[10px] font-mono text-slate-400">{systemInfo.disk.free} free</p>
               </div>
               <div className="w-full bg-slate-800/50 rounded-full h-1 mt-4 overflow-hidden">
@@ -218,7 +218,7 @@ export default function Home({ systemInfo: initialData }) {
                 <div className="p-2 rounded-full bg-emerald-500/10 text-emerald-400">
                     <FiClock className="text-xl" />
                 </div>
-                <p className="text-xl font-mono">{formatUptime(systemInfo.uptime.seconds)}</p>
+                <p className="text-xl font-mono tabular-nums">{formatUptime(systemInfo.uptime.seconds)}</p>
               </div>
             </div>
 
