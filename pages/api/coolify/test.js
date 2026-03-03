@@ -86,14 +86,21 @@ export default async function handler(req, res) {
 
     // Formater les données pour le frontend
     const applications = (applicationsData || []).map(app => {
-      // Debug chaque app individuellement
-      console.log(`🔍 App "${app.name}" - status field:`, app.status);
+      // Parse le status : Coolify retourne "running:unhealthy" ou "exited:healthy"
+      // On garde seulement la première partie (running, exited, stopped, etc.)
+      let status = 'unknown';
+      if (app.status) {
+        status = app.status.split(':')[0]; // Prendre seulement la partie avant ":"
+      }
+      
+      console.log(`🔍 App "${app.name}" - raw status: "${app.status}" → parsed: "${status}"`);
       
       return {
         uuid: app.uuid,
         name: app.name,
         description: app.description || null,
-        status: app.status || 'unknown',
+        status: status,
+        health: app.status ? app.status.split(':')[1] : null, // healthy/unhealthy
         fqdn: app.fqdn || null,
         git_repository: app.git_repository || null,
         git_branch: app.git_branch || null,

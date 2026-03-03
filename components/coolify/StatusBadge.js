@@ -37,6 +37,14 @@ const StatusBadge = ({ status = 'unknown', size = 'md' }) => {
       borderColor: 'border-red-500/30',
       dotColor: 'text-red-500',
     },
+    exited: {
+      label: 'Exited',
+      icon: FiXCircle,
+      bgColor: 'bg-red-500/10',
+      textColor: 'text-red-400',
+      borderColor: 'border-red-500/30',
+      dotColor: 'text-red-500',
+    },
     degraded: {
       label: 'Degraded',
       icon: FiAlertCircle,
@@ -53,14 +61,6 @@ const StatusBadge = ({ status = 'unknown', size = 'md' }) => {
       borderColor: 'border-blue-500/30',
       dotColor: 'text-blue-500',
       animate: true,
-    },
-    exited: {
-      label: 'Exited',
-      icon: FiCircle,
-      bgColor: 'bg-slate-500/10',
-      textColor: 'text-slate-400',
-      borderColor: 'border-slate-500/30',
-      dotColor: 'text-slate-500',
     },
     unknown: {
       label: 'Unknown',
