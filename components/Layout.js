@@ -23,7 +23,6 @@ const Layout = ({ children, title = 'Projets' }) => {
                     <Link href="/dashboard">Dashboard</Link>
                     {isAuthenticated && <Link href="/liste">Projects</Link>}
                     {isAuthenticated && <Link href="/applications" className="text-emerald-400">Applications</Link>}
-                    {isAuthenticated && <Link href="/test-coolify" className="text-slate-500 text-sm">Test (Old)</Link>}
                 </nav>
                 <nav className='flex items-center gap-6 text-sm'>
                     {!isAuthenticated && <button className='inline-block shrink-0 rounded-md bg-emerald-800 px-4 py-1.5 text-sm font-semibold text-slate-300 transition-all esae-in duration-300 hover:bg-slate-300 hover:text-emerald-800 hover:font-bold focus:outline-none active:outline-none' onClick={() => signIn()}>Sign In</button>}

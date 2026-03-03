@@ -16,36 +16,12 @@
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
-import useSWR from 'swr';
 import { FiLoader, FiCheck, FiX, FiChevronDown, FiChevronUp } from 'react-icons/fi';
 import { Toaster } from 'react-hot-toast';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 import ApplicationCard from '../components/coolify/ApplicationCard';
-import { CoolifyApplication } from '@/lib/types/coolify';
-
-interface CoolifyTestResponse {
-  connected: boolean;
-  version?: string;
-  count: number;
-  applications: CoolifyApplication[];
-  timestamp: string;
-  error?: string;
-  details?: any;
-}
-
-/**
- * SWR Fetcher
- * Handles GET requests with error propagation
- */
-const fetcher = async (url: string) => {
-  const res = await fetch(url);
-  
-  if (!res.ok) {
-    const error = await res.json();
-    throw new Error(error.message || 'Failed to fetch');
-  }
-  
-  return res.json();
-};
+import { useCoolifyApplications } from '../hooks/useCoolifyApplications';
 
 export default function ApplicationsPage() {
   const { data: session, status } = useSession();
@@ -56,16 +32,8 @@ export default function ApplicationsPage() {
     redirect('/api/auth/signin');
   }
 
-  // Fetch applications with SWR (auto-refresh every 5s)
-  const { data, error, isLoading, mutate } = useSWR<CoolifyTestResponse>(
-    '/api/coolify/test',
-    fetcher,
-    {
-      refreshInterval: 5000, // Refresh every 5 seconds
-      revalidateOnFocus: true,
-      revalidateOnReconnect: true,
-    }
-  );
+  // Fetch applications with custom hook
+  const { data, error, isLoading, mutate } = useCoolifyApplications();
 
   /**
    * Handle action completion
@@ -76,19 +44,21 @@ export default function ApplicationsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-grain-background bg-cover text-slate-300 p-8">
+    <div className="min-h-screen bg-grain-background bg-cover text-slate-300 flex flex-col">
+      <Header />
       <Toaster position="top-right" />
 
-      <div className="max-w-7xl mx-auto">
-        {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-100 mb-2">
-            Coolify Applications
-          </h1>
-          <p className="text-slate-400">
-            Manage your applications with enhanced controls
-          </p>
-        </div>
+      <main className="flex-1 p-8">
+        <div className="max-w-7xl mx-auto">
+          {/* Page Header */}
+          <div className="mb-8">
+            <h1 className="text-4xl font-bold text-slate-100 mb-2">
+              Coolify Applications
+            </h1>
+            <p className="text-slate-400">
+              Manage your applications with enhanced controls
+            </p>
+          </div>
 
         {/* Loading State */}
         {isLoading && (
@@ -218,7 +188,10 @@ export default function ApplicationsPage() {
             </div>
           </div>
         )}
-      </div>
+        </div>
+      </main>
+
+      <Footer />
     </div>
   );
 }
